@@ -16,7 +16,7 @@ rm(data_full)
 
 ## Converting dates
 datetime <- paste(as.Date(data$Date), data$Time)
-data$Datetime <- as.POSIXct(datetime)
+data$Datetime <- strptime(datetime, format="%Y-%m-%d %H:%M:%S")
 
 ## Plotting histogram
 hist(data$Global_active_power, main="Global Active Power", 

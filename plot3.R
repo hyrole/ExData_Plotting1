@@ -16,14 +16,14 @@ rm(data_full)
 
 ## Converting dates
 datetime <- paste(as.Date(data$Date), data$Time)
-data$Datetime <- as.POSIXct(datetime)
+data$Datetime <- strptime(datetime, format="%Y-%m-%d %H:%M:%S")
 
 ## Plotting graph
 with(data, {
-  plot(Sub_metering_1~Datetime, type="l",
+  plot(data$Datetime, data$Sub_metering_1, type="l",
        ylab="Energy sub metering", xlab="")
-  lines(Sub_metering_2~Datetime,col='Red')
-  lines(Sub_metering_3~Datetime,col='Blue')
+  lines(data$Datetime, data$Sub_metering_2,col='Red')
+  lines(data$Datetime, data$Sub_metering_3,col='Blue')
 })
  
 legend("topright", col=c("black", "red", "blue"), lty=1, cex = 0.75, lwd=c(1,1,1),y.intersp =0.4,

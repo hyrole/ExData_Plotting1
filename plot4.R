@@ -16,22 +16,22 @@ rm(data_full)
 
 ## Converting dates
 datetime <- paste(as.Date(data$Date), data$Time)
-data$Datetime <- as.POSIXct(datetime)
+data$Datetime <- strptime(datetime, format="%Y-%m-%d %H:%M:%S")
 
 ## Plotting graph
 par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
 with(data, {
-  plot(Global_active_power~Datetime, type="l", 
+  plot(data$Datetime, data$Global_active_power, type="l", 
        ylab="Global Active Power", xlab="")
-  plot(Voltage~Datetime, type="l", 
+  plot(data$Datetime, data$Voltage, type="l", 
        ylab="Voltage", xlab="datetime")
-  plot(Sub_metering_1~Datetime, type="l", 
+  plot(data$Datetime, data$Sub_metering_1, type="l", 
        ylab="Energy sub metering", xlab="")
-  lines(Sub_metering_2~Datetime,col='Red')
-  lines(Sub_metering_3~Datetime,col='Blue')
-  legend("topright", col=c("black", "red", "blue"), lty=1, cex = 0.55, lwd=c(1,1,1), bty="n", y.intersp =0.2,
+  lines(data$Datetime, data$Sub_metering_2,col='Red')
+  lines(data$Datetime, data$Sub_metering_3,col='Blue')
+  legend("topright", col=c("black", "red", "blue"), lty=1, cex = 0.65, lwd=c(1,1,1), bty="n", y.intersp =0.2,
          legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))  
-  plot(Global_reactive_power~Datetime, type="l", 
+  plot(data$Datetime, data$Global_reactive_power, type="l", 
        ylab="Global_reactive_power",xlab="datetime")
 })
 

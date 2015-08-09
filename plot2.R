@@ -16,11 +16,10 @@ rm(data_full)
 
 ## Converting dates
 datetime <- paste(as.Date(data$Date), data$Time)
-data$Datetime <- as.POSIXct(datetime)
+data$Datetime <- strptime(datetime, format="%Y-%m-%d %H:%M:%S")
 
 ## Saving to PNG file
 # height(480), width(480)
-plot(data$Global_active_power~data$Datetime, type="l",
-     ylab="Global Active Power (kilowatts)", xlab="")
+plot(data$Datetime, data$Global_active_power, xlab="", ylab="Global Active Power (kilowatts)", type="l")
 dev.copy(png, file="plot2.png", height=480, width=480)
 dev.off()
